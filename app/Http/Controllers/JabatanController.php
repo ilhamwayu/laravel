@@ -68,10 +68,32 @@ class JabatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update()
     {
-        //
-    }
+        $id = $_POST['id'];
+        $request = $_POST['f'];
+
+        $data = Jabatan::updateOrCreate(
+            ['id' => $id], $request
+        );
+
+        if ($data) {
+            $arr = array(
+                "type"      => "success",
+                "msg"       => "Data Berhasil Update",
+                "caption"   => "Success"
+            );
+
+            return "[" . json_encode($arr) . "]";
+        } else {
+            $arr = array(
+                "type"      => "error",
+                "msg"       => "Data Gagal Update !",
+                "caption"   => "Error"
+            );
+
+            return "[" . json_encode($arr) . "]";
+        }    }
 
     /**
      * Remove the specified resource from storage.

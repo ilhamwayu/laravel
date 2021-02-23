@@ -91,9 +91,9 @@
                 <div class="modal-header">
                     <h4 class="modal-title" style="float:left">Edit Jabatan</h4>
                 </div>
-                <form method="POST" id="fedit" action="javascript:submitForm('fedit', 'reset', 'dt');" url="{{ url('adminAdd') }}">
+                <form method="POST" id="fedit" action="javascript:submitForm('fedit', 'reset', 'dt');" url="{{ url('jabatanUp') }}">
                     @csrf
-                    <input type="hidden" id="getId">
+                    <input type="hidden" id="getId" name="id">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">

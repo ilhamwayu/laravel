@@ -31,6 +31,7 @@ Route::group(['middleware' => 'SessionCek'], function(){
             Route::get('/jabatanData', 'JabatanController@dataTable')->name('jabatanData');
             Route::post('/jabatanAdd', 'JabatanController@create')->name('jabatanAdd');
             Route::post('/jabatanDel', 'JabatanController@destroy')->name('jabatanDel');
+            Route::post('/jabatanUp', 'JabatanController@update')->name('jabatanUp');
             Route::get('/jabatanedit/{id}', 'JabatanController@edit')->name('jabatanedit');
             Route::get('/selectJabatan', 'JabatanController@select')->name('selectJabatan');
 
