@@ -21,12 +21,47 @@ class AdminController extends Controller
         return view('pages/master/admin');
     }
 
-    public function edit()
+    public function edit($id)
     {
-        $id = $_POST['id'];
-
         $data = Admin::find($id);
         return json_encode($data);
+    }
+
+    public function update()
+    {
+        $id      = $_POST['getId'];
+        $request = $_POST['f'];
+
+        $data = Admin::where('id', $id)
+                       ->update([                
+                       "nama"      => $request['nama'],
+                       "jk"        => $request['jk'],
+                       "tmp_lahir" => $request['tmp_lahir'],
+                       "tgl_lahir" => $request['tgl_lahir'],
+                       "no_hp"     => $request['no_hp'],
+                       "idjabatan" => $request['idjabatan'],
+                       "email"     => $request['email'],
+                       "alamat"    => $request['alamat'],
+                       "idakun"    => $request['idakun'],
+                       ]);
+
+        if ($data) {
+            $arr = array(
+                "type"      => "success",
+                "msg"       => "Data Berhasil Update",
+                "caption"   => "Success"
+            );
+
+            return "[" . json_encode($arr) . "]";
+        } else {
+            $arr = array(
+                "type"      => "error",
+                "msg"       => "Data Gagal Update !",
+                "caption"   => "Error"
+            );
+
+            return "[" . json_encode($arr) . "]";
+        }
     }
 
     public function add(Request $request)
@@ -102,7 +137,7 @@ class AdminController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
                 $btn = '<center>
-                            <button type="button" onclick="getId(`' . $data->id . '`)" data-toggle="modal" data-target="#md-fedit" class="btn btn-icon btn-sm bg-primary">
+                            <button type="button" onclick="edit(`' . $data->id . '`)" data-toggle="modal" data-target="#md-fedit" class="btn btn-icon btn-sm bg-primary">
                                 <i class="fa fa-edit"></i>
                             </button>
                             <button type="button" onclick="getId(`' . $data->idakun . '`)" data-toggle="modal" data-target="#md-delete" class="btn btn-icon btn-sm btn-danger">

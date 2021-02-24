@@ -129,7 +129,7 @@
 		return l;
 	}
 
-  function select(url, id) {
+    function select(url, id) {
 			$.ajax({
 				url: "/" + url,
 				type: "GET",
@@ -151,7 +151,7 @@
 					$("#" + id).removeAttr("disabled");
 				}
 			});
-		}
+    }
 
     function notif(caption, msg, type) {
 			PNotify.prototype.options.styling = 'fontawesome';

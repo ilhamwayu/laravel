@@ -138,13 +138,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="text" class="form-control inp-fadd" autocomplete="off" required="" name="password" autocomplete="off">
+                                    <input type="password" class="form-control inp-fadd" autocomplete="off" required="" name="password" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <textarea type="text" class="form-control inp-fadd" autocomplete="off" required="" name="f[alamat]" autocomplete="off"></textarea>
+                                    <textarea type="text" class="form-control inp-fadd" style="resize: none;height: 200px;" autocomplete="off" required="" name="f[alamat]" autocomplete="off"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -167,21 +167,23 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Edit User</h4>
                 </div>
-                <form method="POST" id="fadd" action="javascript:submitForm('fadd', 'reset', 'dt', adminUp);">
+                <form method="POST" id="fedit" action="javascript:submitForm('fedit', 'reset', 'dt', 'adminUp');">
                     @csrf
+                    <input type="hidden" name="getId" id="idGet">
+                    <input type="hidden" name="f[idakun]" id="idakun">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input type="text" class="form-control inp-fadd" autocomplete="off" required=""
+                                    <input type="text" class="form-control inp-fedit" id="enama" autocomplete="off" required=""
                                         name="f[nama]" autocomplete="off">
                                 </div>
                             </div>
                             <div class='col-md-6'>
                                 <div class="form-group">
                                     <label>Jenis Kelamin</label>
-                                    <select class="form-control inp-fadd select" required="" id="ekgnd" name="f[jk]">
+                                    <select class="form-control inp-fedit select" id="ejk" required="" name="f[jk]">
                                         <option value=""> - Pilih -</option>
                                         <option value="PEREMPUAN"> - PEREMPUAN -</option>
                                         <option value="LAKI-LAKI"> - LAKI-LAKI -</option>
@@ -191,73 +193,43 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Tempat Lahir</label>
-                                    <input type="text" class="form-control inp-fadd" autocomplete="off" required=""
+                                    <input type="text" class="form-control inp-fedit" id="etmp_lahir" autocomplete="off" required=""
                                         name="f[tmp_lahir]" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Tanggal Lahir</label>
-                                    <input type="date" class="form-control inp-fadd" autocomplete="off" required=""
-                                        name="tgl_lahir" autocomplete="off">
+                                    <input type="date" class="form-control inp-fedit" id="etgl" autocomplete="off" required=""
+                                        name="f[tgl_lahir]" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>No Hp</label>
-                                    <input type="text" class="form-control inp-fadd" autocomplete="off" required=""
+                                    <input type="text" class="form-control inp-fedit" id="ehp" autocomplete="off" required=""
                                         name="f[no_hp]" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class='col-md-6'>
-                                <div class="form-group">
-                                    <label>Tipe User</label>
-                                    <select class="form-control inp-fadd select" required="" name="type">
-                                        <option value=""> - Pilih -</option>
-                                        <option value="ADMIN"> - ADMIN -</option>
-                                        <option value="PEGAWAI"> - PEGAWAI -</option>
-                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="text" class="form-control inp-fadd" autocomplete="off" required=""
+                                    <input type="text" class="form-control inp-fedit" id="eemail" autocomplete="off" required=""
                                         name="f[email]" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Username</label>
-                                    <input type="text" class="form-control inp-fadd" autocomplete="off" required=""
-                                        name="username" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="text" class="form-control inp-fadd" autocomplete="off" required=""
-                                        name="password" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Minimal</label>
-                                    <select class="form-control select select2" style="width: 100%;">
-                                        <option selected="selected">Alabama</option>
-                                        <option>Alaska</option>
-                                        <option>California</option>
-                                        <option>Delaware</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Washington</option>
+                                    <label>Jabatan</label>
+                                    <select class="form-control inp-fedit select" name="f[idjabatan]" id="ejbt" >
+                                        <option selected="selected">Pilih</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <textarea type="text" class="form-control inp-fadd" style="height: 50px" autocomplete="off" required=""
+                                    <textarea type="text" class="form-control inp-fedit" id="ealamat" style="resize: none;height: 200px;" autocomplete="off" required=""
                                         name="f[alamat]" autocomplete="off"></textarea>
                                 </div>
                             </div>
@@ -265,7 +237,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn default" data-dismiss="modal">Batal</button>
-                        <button type="submit" id="btn-fadd" class="btn btn-primary">Simpan Perubahan</button>
+                        <button type="submit" id="btn-fedit" class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </form>
             </div>
@@ -301,22 +273,17 @@
 
 @push('scripts')
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
+        
         var table;
         $(document).ready(function() {
             select("selectJabatan", "jabatan");
-
+            select("selectJabatan", "ejbt");
 
             table = $('#data').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: '{{ url('adminData') }}',
+                ajax: '{{ route('adminData') }}',
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -355,10 +322,40 @@
             table.draw();
         }
 
+        function edit(id){
+            getId(id);
+            $.ajax({
+                url:"/adminedit/" + id,
+                type:"GET",
+                dataType:"json",
+                cache:false,
+                beforeSend:function(){
+                    $(".inp").attr("disabled", "disabled");
+                },
+                success:function(data){
+                    $("#enama").val(data.nama);
+                    $("#etgl").val(data.tgl_lahir);
+                    $("#etmp_lahir").val(data.tmp_lahir);
+                    $("#ejbt").val(data.idjabatan);
+                    $("#ejbt").trigger("change");
+                    $("#ejk").val(data.jk);
+                    $("#ejk").trigger("change");
+                    $("#eemail").val(data.email);
+                    $("#ehp").val(data.no_hp);
+                    $("#ealamat").val(data.alamat);
+                    $("#idakun").val(data.idakun);
+
+                },
+                complete:function(){
+                    $(".inp").removeAttr("disabled");
+                }
+            });
+	    }
+
         function del() {
             var id = $("#get_id").val();
             $.ajax({
-                url: "{{ url('adminDel') }}",
+                url: "{{ route('adminDel') }}",
                 type: "POST",
                 data: {
                     id,
@@ -391,6 +388,7 @@
 
         function getId(id) {
             $("#get_id").val(id);
+            $("#idGet").val(id);
         }
 
     </script>

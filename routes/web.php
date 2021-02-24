@@ -25,6 +25,8 @@ Route::group(['middleware' => 'SessionCek'], function(){
             Route::get('/adminData', 'AdminController@dataTable')->name('adminData');
             Route::post('/adminAdd', 'AdminController@add')->name('adminAdd');
             Route::post('/adminDel', 'AdminController@del')->name('adminDel');
+            Route::post('/adminUp', 'AdminController@update')->name('adminUp');
+            Route::get('/adminedit/{id}', 'AdminController@edit')->name('adminedit');
             
             // ROUTE JABATAN
             Route::get('/jabatan', 'JabatanController@index')->name('jabatan');

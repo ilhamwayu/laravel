@@ -74,7 +74,8 @@ class JabatanController extends Controller
         $request = $_POST['f'];
 
         $data = Jabatan::updateOrCreate(
-            ['id' => $id], $request
+            ['id' => $id],
+            $request
         );
 
         if ($data) {
@@ -93,7 +94,8 @@ class JabatanController extends Controller
             );
 
             return "[" . json_encode($arr) . "]";
-        }    }
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -105,21 +107,19 @@ class JabatanController extends Controller
     {
         $id = $_POST['id'];
         $data = Jabatan::find($id)->delete();
-        
+
         if ($data) {
             return '1';
-        }
-        else{
+        } else {
             return '0';
         }
-
     }
 
     public function select()
     {
         $data = DB::table('jabatan')
-                    ->select('id', 'nama_jabatan as name')
-                    ->get();
+            ->select('id', 'nama_jabatan as name')
+            ->get();
         return json_encode($data);
     }
 
@@ -143,5 +143,4 @@ class JabatanController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
-
 }
