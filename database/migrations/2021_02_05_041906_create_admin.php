@@ -21,6 +21,7 @@ class CreateAdmin extends Migration
             $table->date('tgl_lahir');
             $table->char('no_hp', 12);
             $table->string('email', 50);
+            $table->string('idjabatan', 12);
             $table->text('alamat');
             $table->string('idakun', 100);
             $table->timestamps();

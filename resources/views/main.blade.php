@@ -70,14 +70,14 @@
   <script>
     $(document).ready(function () {});
 
-    function submitForm(id, reset, datatables) {
+    function submitForm(id, reset, datatables, link) {
       var form = $("#" + id);
-      var link = $(form).attr("url");
+      // var link = $(form).attr("url");
       var form_data = new FormData($("#" + id)[0]);
       //data: $(form).serialize(),
 
       $.ajax({
-        url: link,
+        url:"/" +link,
         data: form_data,
         method: "POST",
         dataType: "JSON",

@@ -23,14 +23,12 @@ class LoginController extends Controller
 
         if ($data) {
             if (Hash::check($pass, $data->password)) {
-                session(['iwa' => $data->akun, 'nama' =>$data->username, 'type' =>$data->type]);
+                session(['iwa' => $data->akun, 'nama' => $data->name, 'type' => $data->type]);
                 return '1';
-            }
-            else{
+            } else {
                 return '0';
             }
-        }
-        else{
+        } else {
             return '0.1';
         }
     }

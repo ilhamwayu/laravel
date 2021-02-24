@@ -7,7 +7,7 @@
             <h1>Admin</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item">Admin</div>
+            <div class="breadcrumb-item">Admin</div>
             </div>
         </div>
 
@@ -24,7 +24,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group" style="float:right">
                                         <button class="btn btn-success" onclick="reload()">
-                                            <i class="fa fa-refresh fa-lg"></i> Refresh
+                                            <i class="fa fa-sync-alt fa-lg"></i> Refresh
                                         </button>
                                         <button class="btn btn-primary" data-toggle="modal" data-target="#md-fadd">
                                             <i class="fa fa-plus fa-lg"></i> Tambah
@@ -40,7 +40,7 @@
                                                     <th style="width: 5%">No</th>
                                                     <th>Nama</th>
                                                     <th>Jenis Kelamin</th>
-                                                    <th>Username</th>
+                                                    <th>Email</th>
                                                     <th>No Hp</th>
                                                     <th>Alamat</th>
                                                     <th style="width: 10%">Action</th>
@@ -67,7 +67,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Tambah USer</h4>
                 </div>
-                <form method="POST" id="fadd" action="javascript:submitForm('fadd', 'reset', 'dt');" url="{{ url('adminAdd') }}">
+                <form method="POST" id="fadd" action="javascript:submitForm('fadd', 'reset', 'dt', 'adminAdd');" >
                     @csrf
                     <div class="modal-body">
                         <div class="row">
@@ -108,7 +108,7 @@
                             <div class='col-md-6'>
                                 <div class="form-group">
                                     <label>Tipe User</label>
-                                    <select class="form-control inp-fadd select" required="" name="type">
+                                    <select class="form-control inp-fadd select" required="" name="tipe">
                                         <option value=""> - Pilih -</option>
                                         <option value="ADMIN"> - ADMIN -</option>
                                         <option value="PEGAWAI"> - PEGAWAI -</option>
@@ -124,7 +124,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Jabatan</label>
-                                    <select class="form-control inp-fadd select" id="jabatan">
+                                    <select class="form-control inp-fadd select" name="f[idjabatan]" id="jabatan">
                                         <option selected="selected">Pilih</option>
                                     </select>
                                 </div>
@@ -160,14 +160,14 @@
         <!-- /.modal-dialog -->
     </div>
 
-    {{-- <div class="modal fade bd-example-modal-lg" id="md-fedit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="md-fedit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Tambah USer</h4>
+                    <h4 class="modal-title">Edit User</h4>
                 </div>
-                <form method="POST" id="fadd" action="javascript:submitForm('fadd', 'reset', 'dt');" url="{{ url('adminAdd') }}">
+                <form method="POST" id="fadd" action="javascript:submitForm('fadd', 'reset', 'dt', adminUp);">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
@@ -272,7 +272,7 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div> --}}
+    </div>
 
     <div class="modal fade" id="md-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -330,12 +330,12 @@
                         name: 'jk'
                     },
                     {
-                        data: 'tmp_lahir',
-                        name: 'tmp_lahir'
+                        data: 'email',
+                        name: 'email'
                     },
                     {
-                        data: 'tgl_lahir',
-                        name: 'tgl_lahir'
+                        data: 'no_hp',
+                        name: 'no_hp'
                     },
                     {
                         data: 'alamat',
@@ -358,13 +358,13 @@
         function del() {
             var id = $("#get_id").val();
             $.ajax({
-                url: "{{ url('delete') }}",
+                url: "{{ url('adminDel') }}",
                 type: "POST",
                 data: {
                     id,
                     _token: "{{ csrf_token() }}"
                 },
-                daraType: "json",
+                dataType: "json",
                 cache: false,
                 beforeSend: function() {
                     $("#btn-del").attr("disabled", "disabled");

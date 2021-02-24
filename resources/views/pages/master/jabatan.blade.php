@@ -24,7 +24,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group" style="float:right">
                                         <button class="btn btn-success" onclick="reload()">
-                                            <i class="fa fa-refresh fa-lg"></i> Refresh
+                                            <i class="fa fa-sync-alt fa-lg"></i> Refresh
                                         </button>
                                         <button class="btn btn-primary" data-toggle="modal" data-target="#md-fadd">
                                             <i class="fa fa-plus fa-lg"></i> Tambah
@@ -62,7 +62,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title" style="float:left">Tambah Jabatan</h4>
                 </div>
-                <form method="POST" id="fadd" action="javascript:submitForm('fadd', 'reset', 'dt');" url="{{ url('jabatanAdd') }}">
+                <form method="POST" id="fadd" action="javascript:submitForm('fadd', 'reset', 'dt', 'jabatanAdd');">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
@@ -91,7 +91,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title" style="float:left">Edit Jabatan</h4>
                 </div>
-                <form method="POST" id="fedit" action="javascript:submitForm('fedit', 'reset', 'dt');" url="{{ url('jabatanUp') }}">
+                <form method="POST" id="fedit" action="javascript:submitForm('fedit', 'reset', 'dt', 'jabatanUp');">
                     @csrf
                     <input type="hidden" id="getId" name="id">
                     <div class="modal-body">

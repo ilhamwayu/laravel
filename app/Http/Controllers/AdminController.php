@@ -14,7 +14,6 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        
     }
 
     public function index()
@@ -23,66 +22,55 @@ class AdminController extends Controller
     }
 
     public function edit()
-    {   
+    {
         $id = $_POST['id'];
 
         $data = Admin::find($id);
         return json_encode($data);
     }
 
-    public function add()
+    public function add(Request $request)
     {
 
         $request   = $_POST['f'];
-        $tgl_lahir = date("Y/m/d", strtotime($_POST['tgl_lahir']));
         $pass      = Hash::make($_POST['password']);
-        $akun      = Str::random(40);
+        $name      = $_POST['username'];
+        $akun      = Str::random(10);
 
-        $dt = DB::table('users')
-                  ->where('username', $_POST['username'])
-                  ->first();
+        $dt = DB::table('users')->where('username', $name)->count();
 
-        $validatedData = $request->validate([
-            'nama'      => 'required',
-            'username'  => 'required|unique:user',
-            'password'  => 'required|min:6',
-            'jk'        => 'required',
-            'tmp_lahir' => 'required',
-            'tgl_lahir' => 'required',
-            'type'      => 'required',
-            'no_hp'     => 'required',
-        ]);
-
-        if ($dt->username =="") {
+        if ($dt == 0) {
             $data2 = array(
-                "username"       => $_POST['username'],
+                "username"       => $name,  
+                "name"           => $request['nama'],
                 "alias"          => $_POST['password'],
-                "type"           => $_POST['type'],
-                "remember_token" => $akun,
+                "type"           => $_POST['tipe'],
+                "remember_token" => Str::random(40),
                 "password"       => $pass,
                 "akun"           => $akun,
             );
-    
+
             $user  = DB::table('users')->insert($data2);
-    
-            // $admin = Admin::create(["nama" => $request->nama,
-            // "jk"   => $request->jk,
-            // "tmp_lahir" => $request->tmp_lahir,
-            // "tgl_lahir" => $tgl_lahir,
-            // "no_hp" => $request->no_hp,
-            // "email" => $request->email,
-            // "alamat" => $request->alamat,
-            // "idakun" => $request->akun]);
-            
-            $admin = Admin::create($request);
-    
+
+            $admin = Admin::create([
+                "nama"      => $request['nama'],
+                "jk"        => $request['jk'],
+                "tmp_lahir" => $request['tmp_lahir'],
+                "tgl_lahir" => $request['tgl_lahir'],
+                "no_hp"     => $request['no_hp'],
+                "idjabatan" => $request['idjabatan'],
+                "email"     => $request['email'],
+                "alamat"    => $request['alamat'],
+                "idakun"    => $akun
+            ]);
+
             if ($admin || $user) {
                 $arr = array(
                     "type"      => "success",
                     "msg"       => "Data Berhasil Disimpan",
                     "caption"   => "Success"
                 );
-    
+
                 return "[" . json_encode($arr) . "]";
             } else {
                 $arr = array(
@@ -90,11 +78,10 @@ class AdminController extends Controller
                     "msg"       => "Data Gagal Disimpan !",
                     "caption"   => "Error"
                 );
-    
+
                 return "[" . json_encode($arr) . "]";
             }
-        }
-        else{
+        } else {
             $arr = array(
                 "type"      => "warning",
                 "msg"       => "Username Sudah Terdaftar",
@@ -102,26 +89,23 @@ class AdminController extends Controller
             );
 
             return "[" . json_encode($arr) . "]";
-
         }
-
-
     }
 
     public function dataTable()
     {
         $data = Admin::latest()->get();
         return Datatables::of($data)
-            ->editColumn("tgl_lahir", function ($data) {
-                return date("d/m/Y", strtotime($data->tgl_lahir));
-            })
+            // ->editColumn("tgl_lahir", function ($data) {
+            //     return date("d/m/Y", strtotime($data->tgl_lahir));
+            // })
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
                 $btn = '<center>
                             <button type="button" onclick="getId(`' . $data->id . '`)" data-toggle="modal" data-target="#md-fedit" class="btn btn-icon btn-sm bg-primary">
                                 <i class="fa fa-edit"></i>
                             </button>
-                            <button type="button" onclick="getId(`' . $data->id . '`)" data-toggle="modal" data-target="#md-delete" class="btn btn-icon btn-sm btn-danger">
+                            <button type="button" onclick="getId(`' . $data->idakun . '`)" data-toggle="modal" data-target="#md-delete" class="btn btn-icon btn-sm btn-danger">
 									<i class="fa fa-trash"></i>
 							</button>
                         </center>
@@ -134,18 +118,16 @@ class AdminController extends Controller
 
     public function del()
     {
-        $id = $_POST['id'];
+        $idakun = $_POST['id'];
 
-        $admin = Admin::find($id)->delete();
-        
-        if ($admin) {
+        $admin = DB::table('admin')->where('idakun', $idakun)->delete();
+        $user  = DB::table('users')->where('akun', $idakun)->delete();
+        if ( $admin || $user) {
             $data = "1";
-        }
-        else{
+        } else {
             $data = "0";
         }
 
         return $data;
     }
-
 }

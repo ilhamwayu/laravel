@@ -16,9 +16,10 @@ class CreateUser extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('akun', 100);
+            $table->string('name', 50);
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('type', ['ADMIN', 'KASIR']);
+            $table->enum('type', ['ADMIN', 'PEGAWAI']);
             $table->string('alias', 50);
             $table->rememberToken();
             $table->timestamps();
