@@ -4,10 +4,10 @@
 
     <section class="section">
         <div class="section-header">
-            <h1>Admin</h1>
+            <h1>User</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-            <div class="breadcrumb-item">Admin</div>
+            <div class="breadcrumb-item">User</div>
             </div>
         </div>
 
@@ -17,7 +17,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data Admin</h4>
+                            <h4>Data User</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -64,8 +64,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Tambah USer</h4>
+                    <h4 class="modal-title" style="float:left">Tambah User</h4>
                 </div>
                 <form method="POST" id="fadd" action="javascript:submitForm('fadd', 'reset', 'dt', 'adminAdd');" >
                     @csrf
@@ -164,8 +163,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Edit User</h4>
+                    <h4 class="modal-title" style="float:left">Edit User</h4>
                 </div>
                 <form method="POST" id="fedit" action="javascript:submitForm('fedit', 'reset', 'dt', 'adminUp');">
                     @csrf
@@ -246,11 +244,43 @@
         <!-- /.modal-dialog -->
     </div>
 
+    <div class="modal fade bd-example" id="md-akun" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="float:left">Akun</h4>
+                </div>
+                    <input type="hidden" name="getId">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" class="form-control inp-fedit" id="username" autocomplete="off" required="" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="text" class="form-control inp-fedit" id="password" autocomplete="off" required="" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn default" data-dismiss="modal">Batal</button>
+                    </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <div class="modal fade" id="md-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Hapus Admin</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Hapus User</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -345,6 +375,25 @@
                     $("#ealamat").val(data.alamat);
                     $("#idakun").val(data.idakun);
 
+                },
+                complete:function(){
+                    $(".inp").removeAttr("disabled");
+                }
+            });
+	    }
+
+        function akun(id){
+            $.ajax({
+                url:"/adminakun/" + id,
+                type:"GET",
+                dataType:"json",
+                cache:false,
+                beforeSend:function(){
+                    $(".inp").attr("disabled", "disabled");
+                },
+                success:function(data){
+                    $("#username").val(data[0].username);
+                    $("#password").val(data[0].alias);
                 },
                 complete:function(){
                     $(".inp").removeAttr("disabled");

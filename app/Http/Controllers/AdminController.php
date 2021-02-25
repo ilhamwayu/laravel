@@ -27,6 +27,12 @@ class AdminController extends Controller
         return json_encode($data);
     }
 
+    public function akun($id)
+    {
+        $data = DB::table('users')->where('akun', $id)->get();
+        return json_encode($data);
+    }
+
     public function update()
     {
         $id      = $_POST['getId'];
@@ -136,13 +142,21 @@ class AdminController extends Controller
             // })
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
+
+                if ($data->nama="Ilham Wahyu Alam") {
+                    $btnAkun = '<a class="dropdown-item" href="#" onclick="akun(`' . $data->idakun . '`)" data-toggle="modal" data-target="#md-akun"><i class="fa fa-key"></i> Akun</a>';
+                }
+                else{
+                    $btnAkun= '';
+                }
+
                 $btn = '<center>
-                            <button type="button" onclick="edit(`' . $data->id . '`)" data-toggle="modal" data-target="#md-fedit" class="btn btn-icon btn-sm bg-primary">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button type="button" onclick="getId(`' . $data->idakun . '`)" data-toggle="modal" data-target="#md-delete" class="btn btn-icon btn-sm btn-danger">
-									<i class="fa fa-trash"></i>
-							</button>
+                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#" onclick="edit(`' . $data->id . '`)" data-toggle="modal" data-target="#md-fedit"><i class="fa fa-edit"></i>Edit</a>
+                                '.$btnAkun.'
+                                <a class="dropdown-item" href="#" onclick="getId(`' . $data->idakun . '`)" data-toggle="modal" data-target="#md-delete"><i class="fa fa-trash"></i> Hapus</a>
+                            </div>
                         </center>
                         ';
                 return $btn;

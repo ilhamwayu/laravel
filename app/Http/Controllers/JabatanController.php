@@ -130,12 +130,11 @@ class JabatanController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
                 $btn = '<center>
-                            <button type="button" onclick="edit(`' . $data->id . '`)" data-toggle="modal" data-target="#md-fedit" class="btn btn-icon btn-sm bg-primary">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button type="button" onclick="getId(`' . $data->id . '`)" data-toggle="modal" data-target="#md-delete" class="btn btn-icon btn-sm btn-danger">
-									<i class="fa fa-trash"></i>
-							</button>
+                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#" onclick="edit(`' . $data->id . '`)" data-toggle="modal" data-target="#md-fedit"><i class="fa fa-edit"></i>Edit</a>
+                                <a class="dropdown-item" href="#" onclick="getId(`' . $data->id . '`)" data-toggle="modal" data-target="#md-delete"><i class="fa fa-trash"></i> Hapus</a>
+                            </div>
                         </center>
                         ';
                 return $btn;

@@ -13,7 +13,7 @@
             <li class="nav-item dropdown">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-database"></i> <span>Masterdata</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="{{ url('admin') }}">Admin</a></li>
+                <li><a class="nav-link" href="{{ url('admin') }}">User</a></li>
                 <li><a class="nav-link" href="{{ url('jabatan') }}">Jabatan</a></li>
                 <li><a class="nav-link" href="layout-top-navigation.html">Produk</a></li>
               </ul>
