@@ -41,5 +41,6 @@ Route::group(['middleware' => 'SessionCek'], function(){
 
         });
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::get('/logout', 'otentikasi\LoginController@logout')->name('logout');
 });

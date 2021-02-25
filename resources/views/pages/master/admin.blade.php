@@ -224,6 +224,16 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class='col-md-6'>
+                                <div class="form-group">
+                                    <label>Tipe User</label>
+                                    <select class="form-control inp-fadd select" required="" id="tp" name="f[type]">
+                                        <option value=""> - Pilih -</option>
+                                        <option value="ADMIN"> - ADMIN -</option>
+                                        <option value="PEGAWAI"> - PEGAWAI -</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Alamat</label>
@@ -268,7 +278,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn default" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
             </div>
             <!-- /.modal-content -->
@@ -363,17 +373,20 @@
                     $(".inp").attr("disabled", "disabled");
                 },
                 success:function(data){
-                    $("#enama").val(data.nama);
-                    $("#etgl").val(data.tgl_lahir);
-                    $("#etmp_lahir").val(data.tmp_lahir);
-                    $("#ejbt").val(data.idjabatan);
+                    $("#enama").val(data[0].nama);
+                    $("#etgl").val(data[0].tgl_lahir);
+                    $("#etmp_lahir").val(data[0].tmp_lahir);
+                    $("#ejbt").val(data[0].idjabatan);
                     $("#ejbt").trigger("change");
-                    $("#ejk").val(data.jk);
+                    $("#ejk").val(data[0].jk);
                     $("#ejk").trigger("change");
-                    $("#eemail").val(data.email);
-                    $("#ehp").val(data.no_hp);
-                    $("#ealamat").val(data.alamat);
-                    $("#idakun").val(data.idakun);
+                    $("#eemail").val(data[0].email);
+                    $("#ehp").val(data[0].no_hp);
+                    $("#ealamat").val(data[0].alamat);
+                    $("#idakun").val(data[0].idakun);
+                    $("#tp").val(data[0].type);
+                    $("#tp").trigger("change");
+
 
                 },
                 complete:function(){

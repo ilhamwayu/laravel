@@ -23,7 +23,12 @@ class AdminController extends Controller
 
     public function edit($id)
     {
-        $data = Admin::find($id);
+        $data = DB::table('admin')
+                    ->join('users', 'users.akun', '=', 'admin.idakun')
+                    ->select('admin.*', 'users.name', 'users.type', 'users.alias')
+                    ->where('admin.idakun', $id)
+                    ->get();
+
         return json_encode($data);
     }
 
@@ -38,7 +43,7 @@ class AdminController extends Controller
         $id      = $_POST['getId'];
         $request = $_POST['f'];
 
-        $data = Admin::where('id', $id)
+        $admin = Admin::where('idakun', $id)
                        ->update([                
                        "nama"      => $request['nama'],
                        "jk"        => $request['jk'],
@@ -51,7 +56,15 @@ class AdminController extends Controller
                        "idakun"    => $request['idakun'],
                        ]);
 
-        if ($data) {
+        $user = DB::table('users')
+                    ->where('akun', $id)
+                    ->update([
+                        "name" =>$request['nama'],
+                        "type" =>$request['type']
+                    ]);               
+
+
+        if ($admin || $user) {
             $arr = array(
                 "type"      => "success",
                 "msg"       => "Data Berhasil Update",
@@ -153,7 +166,7 @@ class AdminController extends Controller
                 $btn = '<center>
                             <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#" onclick="edit(`' . $data->id . '`)" data-toggle="modal" data-target="#md-fedit"><i class="fa fa-edit"></i>Edit</a>
+                                <a class="dropdown-item" href="#" onclick="edit(`' . $data->idakun . '`)" data-toggle="modal" data-target="#md-fedit"><i class="fa fa-edit"></i>Edit</a>
                                 '.$btnAkun.'
                                 <a class="dropdown-item" href="#" onclick="getId(`' . $data->idakun . '`)" data-toggle="modal" data-target="#md-delete"><i class="fa fa-trash"></i> Hapus</a>
                             </div>
