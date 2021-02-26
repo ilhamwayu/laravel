@@ -10,6 +10,7 @@
             </div>
         </div>
         @foreach ($data as $v)
+
             <div class="section-body">
                 <h2 class="section-title">Hi, {{ $v->nama }}!</h2>
                 <p class="section-lead">
@@ -20,22 +21,22 @@
                     <div class="col-12 col-md-12 col-lg-5">
                         <div class="card profile-widget">
                             <div class="profile-widget-header">
-                                <img alt="image" src="../assets/img/avatar/avatar-1.png"
-                                    class="rounded-circle profile-widget-picture">
-                                {{-- <div class="profile-widget-items">
-                    <div class="profile-widget-item">
-                        <div class="profile-widget-item-label">Posts</div>
-                        <div class="profile-widget-item-value">187</div>
-                    </div>
-                    <div class="profile-widget-item">
-                        <div class="profile-widget-item-label">Followers</div>
-                        <div class="profile-widget-item-value">6,8K</div>
-                    </div>
-                    <div class="profile-widget-item">
-                        <div class="profile-widget-item-label">Following</div>
-                        <div class="profile-widget-item-value">2,1K</div>
-                    </div>
-                    </div> --}}
+                                <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
+                                        {{-- <div class="profile-widget-items">
+                                            <div class="profile-widget-item">
+                                                <div class="profile-widget-item-label">Posts</div>
+                                                <div class="profile-widget-item-value">187</div>
+                                            </div>
+                                            <div class="profile-widget-item">
+                                                <div class="profile-widget-item-label">Followers</div>
+                                                <div class="profile-widget-item-value">6,8K</div>
+                                            </div>
+                                            <div class="profile-widget-item">
+                                                <div class="profile-widget-item-label">Following</div>
+                                                <div class="profile-widget-item-value">2,1K</div>
+                                            </div>
+                                          </div>
+                                        --}}
 
                             </div>
                             <div class="profile-widget-description">
@@ -79,69 +80,84 @@
 
                                     </div>
                                 </div>
-                                {{-- Ujang maman is a superhero name in <b>Indonesia</b>, especially in my family. He is not a fictional character but an original hero in my family, a hero for his children and for his wife. So, I use the name as a user in this template. Not a tribute, I'm just bored with <b>'John Doe'</b>. --}}
                             </div>
                             {{-- <div class="card-footer text-center">
-                    <div class="font-weight-bold mb-2">Follow Ujang On</div>
-                    <a href="#" class="btn btn-social-icon btn-facebook mr-1">
-                    <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="btn btn-social-icon btn-twitter mr-1">
-                    <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="btn btn-social-icon btn-github mr-1">
-                    <i class="fab fa-github"></i>
-                    </a>
-                    <a href="#" class="btn btn-social-icon btn-instagram">
-                    <i class="fab fa-instagram"></i>
-                    </a>
-                </div> --}}
+                                    <div class="font-weight-bold mb-2">Follow Ujang On</div>
+                                    <a href="#" class="btn btn-social-icon btn-facebook mr-1">
+                                    <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-social-icon btn-twitter mr-1">
+                                    <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-social-icon btn-github mr-1">
+                                    <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-social-icon btn-instagram">
+                                    <i class="fab fa-instagram"></i>
+                                    </a>
+                                </div> --}}
                         </div>
                     </div>
                     <div class="col-12 col-md-12 col-lg-7">
                         <div class="card">
-                            <form method="post" class="needs-validation" novalidate="">
+                            <form method="POST" id="fedit" action="javascript:submitForm('fedit', 'reset', 'dt', 'adminUp');">
+                                @csrf
+                                <input type="text" name="" id="">
                                 <div class="card-header">
                                     <h4>Edit Profile</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group col-md-6 col-12">
-                                            <label>First Name</label>
-                                            <input type="text" class="form-control" value="Ujang" required="">
+                                            <label>Nama</label>
+                                            <input type="text" class="form-control inp-fedit" name="f[nama]" value="{{ $v->nama }}" required="">
                                             <div class="invalid-feedback">
                                                 Please fill in the first name
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6 col-12">
-                                            <label>Last Name</label>
-                                            <input type="text" class="form-control" value="Maman" required="">
-                                            <div class="invalid-feedback">
-                                                Please fill in the last name
-                                            </div>
+                                            <label class="control-label">Jenis Kelamin</label><br>
+                                            <select class="form-control inp-fedit" name="f[jk]" >
+                                                <option value="LAKI-LAKI"
+                                                    @if ($v->jk=="LAKI-LAKI")
+                                                        {{ "selected" }}
+                                                    @endif>Laki - laki
+                                                </option>
+                                                <option value="PEREMPUAN" 
+                                                    @if ($v->jk=="PEREMPUAN")
+                                                        {{ "selected" }}
+                                                    @endif>Perempuan
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-7 col-12">
-                                            <label>Email</label>
-                                            <input type="email" class="form-control" value="ujang@maman.com" required="">
-                                            <div class="invalid-feedback">
-                                                Please fill in the email
-                                            </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>Tempat Lahir</label>
+                                            <input type="email" class="form-control inp-fedit" name="f[tmp_lahir]" value="{{ $v->tmp_lahir }}" required="">
                                         </div>
-                                        <div class="form-group col-md-5 col-12">
-                                            <label>Phone</label>
-                                            <input type="tel" class="form-control" value="">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>Tanggal Lahir</label>
+                                            <input type="date" class="form-control inp-fedit" name="f[tgl_lahir]" value="{{ $v->tgl_lahir }}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control inp-fedit" name="f[email]" value="{{ $v->email }}" required="">
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>No Telpon</label>
+                                            <input type="number" class="form-control inp-fedit" name="f[no_hp]" value="{{ $v->no_hp }}">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-12">
-                                            <label>Bio</label>
-                                            <textarea style="resize: none;height: 150px;"
-                                                class="form-control summernote-simple">Ujang maman is a superhero name in <b>Indonesia</b>, especially in my family. He is not a fictional character but an original hero in my family, a hero for his children and for his wife. So, I use the name as a user in this template. Not a tribute, I'm just bored with <b>'John Doe'</b>.</textarea>
+                                            <label>Alamat</label>
+                                            <textarea style="resize: none;height: 150px;" name="f[alamat]" class="form-control inp-fedit summernote-simple">{{ $v->alamat }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="form-group mb-0 col-12">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" name="remember" class="custom-control-input"
@@ -153,10 +169,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="card-footer text-right">
-                                    <button class="btn btn-primary">Save Changes</button>
+                                    <button class="btn btn-primary" type="submit" id="btn-fedit">Save Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -166,3 +182,11 @@
         @endforeach
     </section>
 @endsection
+
+@push('scripts')
+
+<script>
+    
+</script>
+
+@endpush
